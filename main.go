@@ -16,11 +16,6 @@ func shorten_url(string url) {
 	var random string;
 	random := "https://127.0.0.1/" + (string(bytes))
 
-	//Put the new url in json format
-	data := structs.response{
-		ShortURL: random
-	}
-
 	return data
 }
 
@@ -36,7 +31,7 @@ func main() {
 	long_url := fmt.Scanln($long_url)
 	mux := http.NewServeMux()
 
-	//when user types "/shorten" in url a shortened version of longurl will be shown to them
+	//when user types "/shorten" in url field on a browser a shortened version of longurl will be shown to them
 	mux.handleFunc("/shorten"), func(w http.ResponseWriter, r *http.Request) {
 		data := shorten_url(long_url)
 
