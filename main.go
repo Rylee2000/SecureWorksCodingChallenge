@@ -26,7 +26,12 @@ func shorten_url() string {
 }
 
 func main() {
+	//map that links short urls to longer ones
+	url_map := make(map[string]string)
+
 	mux := http.NewServeMux()
+
+	//secureworks website being used in this case
 	mux.HandleFunc("/secureworks.com", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			//get ranomized short url
@@ -37,8 +42,12 @@ func main() {
 				ShortURL: random,
 			}
 			json.NewEncoder(w).Encode(data)
+
+			//for redirecting purposes, use map to keep track of short urls with their corresponding longer ones
+			url_map[random] = "https://secureworks.com"
 		}
 	})
+
 	//open server on port 8080
 	http.ListenAndServe(":8080", mux)
 }
